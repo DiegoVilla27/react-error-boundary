@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import ErrorBoundary from "./components/error"; // Asegúrate de importar el ErrorBoundary
 
-function App() {
-  const [count, setCount] = useState(0)
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  if (count === 5) {
+    throw new Error("Deliberate Error"); // Provoca un error intencionado
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <div>
+      <h1>My Application</h1>
+      <ErrorBoundary>
+        <MyComponent />
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+export default App;
